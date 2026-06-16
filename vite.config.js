@@ -1,18 +1,47 @@
+import { readFileSync } from 'node:fs';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { cloudflare } from '@cloudflare/vite-plugin';
+import vinext from 'vinext';
 import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
+import { sites } from './build/sites-vite-plugin.js';
 
-// https://vite.dev/config/
+const rootDirectory = dirname(fileURLToPath(import.meta.url));
+const hostingConfig = JSON.parse(
+  readFileSync(resolve(rootDirectory, '.openai', 'hosting.json'), 'utf8'),
+);
+
+const placeholderDatabaseId = '00000000-0000-4000-8000-000000000000';
+
+const localBindingConfig = {
+  main: './worker/index.js',
+  compatibility_flags: ['nodejs_compat'],
+  d1_databases: hostingConfig.d1
+    ? [
+        {
+          binding: hostingConfig.d1,
+          database_name: 'gymbrowear-d1',
+          database_id: placeholderDatabaseId,
+        },
+      ]
+    : [],
+  r2_buckets: hostingConfig.r2
+    ? [
+        {
+          binding: hostingConfig.r2,
+          bucket_name: 'gymbrowear-r2',
+        },
+      ]
+    : [],
+};
+
 export default defineConfig({
-  plugins: [react()],
-  server: {
-    // En desarrollo, cuando uses "vercel dev" esto no se usa.
-    // Si corres solo "npm run dev", las llamadas a /api/ darán 404
-    // hasta que deploys a Vercel o uses "vercel dev".
-    proxy: {
-      '/api': {
-        target: 'http://localhost:3001',
-        changeOrigin: true,
-      },
-    },
-  },
+  plugins: [
+    vinext(),
+    sites(),
+    cloudflare({
+      viteEnvironment: { name: 'rsc', childEnvironments: ['ssr'] },
+      config: localBindingConfig,
+    }),
+  ],
 });
