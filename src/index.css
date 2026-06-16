@@ -1,20 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* ════════════════════════════════════════════════════════════════
-   GYMBROWEAR — Design System
-   Brand Palette:
-     Ocean Blue    #003366  (Primary)
-     Charcoal Slate #2C3E50 (Secondary)
-     Electric Cobalt #007BFF (Accent)
-     Cool Metallic  #BDC3C7 (Neutral)
-     Clean White    #FFFFFF
-   Contact: +1 (915) 355-9631 · Ciudad Juárez, Chihuahua
-════════════════════════════════════════════════════════════════ */
-
 @layer base {
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    color-scheme: dark;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
 
   html {
     scroll-behavior: smooth;
@@ -23,318 +22,64 @@
   }
 
   body {
-    background: #001829;
-    color: #FFFFFF;
+    margin: 0;
+    min-height: 100vh;
     overflow-x: hidden;
-    font-family: 'Inter', system-ui, sans-serif;
+    background: #000000;
+    color: #ffffff;
+    font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+    letter-spacing: 0.01em;
   }
 
-  #root { width: 100%; min-height: 100vh; }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
 
-  ::-webkit-scrollbar       { width: 4px; }
-  ::-webkit-scrollbar-track { background: #001829; }
-  ::-webkit-scrollbar-thumb { background: #007BFF; border-radius: 2px; }
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  #root {
+    min-height: 100vh;
+  }
+
+  ::selection {
+    background: rgba(196, 162, 106, 0.24);
+    color: #ffffff;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #050505;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(196, 162, 106, 0.42);
+    border-radius: 999px;
+  }
 }
 
 @layer utilities {
-
-  /* ── Typography helpers ─────────────────────────────── */
-  .font-display      { font-family: 'Bebas Neue', Impact, sans-serif; }
-  .font-body-serif   { font-family: 'Playfair Display', Georgia, serif; }
-
-  /* ── Cobalt gradient text (replaces champagne gradient) ─ */
-  .text-cobalt-gradient {
-    background: linear-gradient(135deg, #007BFF 0%, #4DA6FF 50%, #007BFF 100%);
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: shimmer 3s linear infinite;
+  .luxury-kicker {
+    @apply text-[0.68rem] font-medium uppercase tracking-[0.44em] text-pearl/70;
   }
 
-  /* Keep the old class name so existing components still work */
-  .text-champagne-gradient {
-    background: linear-gradient(135deg, #007BFF 0%, #4DA6FF 50%, #007BFF 100%);
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: shimmer 3s linear infinite;
+  .luxury-panel {
+    @apply border border-white/10 bg-white/[0.03] backdrop-blur-sm;
   }
 
-  .text-titanium-gradient {
-    background: linear-gradient(180deg, #FFFFFF 0%, #BDC3C7 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  .luxury-divider {
+    @apply h-px w-full bg-gradient-to-r from-transparent via-champagne/55 to-transparent;
   }
 
-  /* ── Glass card — Ocean Blue tinted ─────────────────── */
-  .glass-card {
-    background: rgba(0, 51, 102, 0.25);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(0, 123, 255, 0.12);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(0, 123, 255, 0.08);
-  }
-
-  .glass-card-featured {
-    background: rgba(0, 123, 255, 0.1);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(0, 123, 255, 0.35);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 60px rgba(0, 123, 255, 0.12), inset 0 1px 0 rgba(0, 123, 255, 0.2);
-  }
-
-  /* ── Accent divider line ─────────────────────────────── */
-  .champagne-line {
-    background: linear-gradient(90deg, transparent, #007BFF, transparent);
-    height: 1px;
-  }
-  .cobalt-line {
-    background: linear-gradient(90deg, transparent, #007BFF, transparent);
-    height: 1px;
-  }
-
-  /* ── Nav blur ────────────────────────────────────────── */
-  .nav-blur {
-    backdrop-filter: blur(24px) saturate(180%);
-    -webkit-backdrop-filter: blur(24px) saturate(180%);
-    background: rgba(0, 24, 41, 0.92);
-    border-bottom: 1px solid rgba(0, 123, 255, 0.12);
-  }
-
-  /* ── Primary button — Electric Cobalt ───────────────── */
-  .btn-primary {
-    background: linear-gradient(135deg, #007BFF 0%, #4DA6FF 50%, #007BFF 100%);
-    background-size: 200% auto;
-    color: #FFFFFF;
-    font-family: 'Inter', sans-serif;
-    font-weight: 700;
-    font-size: 0.75rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    transition: all 0.4s ease;
-    position: relative;
-    overflow: hidden;
-  }
-  .btn-primary:hover {
-    background-position: right center;
-    box-shadow: 0 0 40px rgba(0, 123, 255, 0.45);
-    transform: translateY(-1px);
-  }
-
-  /* ── Secondary button ────────────────────────────────── */
-  .btn-secondary {
-    background: transparent;
-    border: 1px solid rgba(0, 123, 255, 0.45);
-    color: #007BFF;
-    font-family: 'Inter', sans-serif;
-    font-weight: 600;
-    font-size: 0.75rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    transition: all 0.4s ease;
-  }
-  .btn-secondary:hover {
-    border-color: #007BFF;
-    background: rgba(0, 123, 255, 0.1);
-    box-shadow: 0 0 20px rgba(0, 123, 255, 0.2);
-    transform: translateY(-1px);
-  }
-
-  /* ── Stat number ─────────────────────────────────────── */
-  .stat-number {
-    font-family: 'Bebas Neue', Impact, sans-serif;
-    font-size: 3.5rem;
-    line-height: 1;
-    background: linear-gradient(135deg, #007BFF, #4DA6FF);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  /* ── Hero overlay ────────────────────────────────────── */
-  .hero-overlay {
-    background: linear-gradient(
-      180deg,
-      rgba(0, 24, 41, 0.45) 0%,
-      rgba(0, 24, 41, 0.65) 50%,
-      rgba(0, 24, 41, 0.96) 100%
-    );
-  }
-
-  /* ── Scroll reveal ───────────────────────────────────── */
-  .animate-on-scroll {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-  }
-  .animate-on-scroll.visible { opacity: 1; transform: translateY(0); }
-
-  .animate-delay-100 { transition-delay: 0.1s; }
-  .animate-delay-200 { transition-delay: 0.2s; }
-  .animate-delay-300 { transition-delay: 0.3s; }
-  .animate-delay-400 { transition-delay: 0.4s; }
-
-  /* ── Ticker ──────────────────────────────────────────── */
-  @keyframes ticker {
-    0%   { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
-  @keyframes ticker-reverse {
-    0%   { transform: translateX(-50%); }
-    100% { transform: translateX(0); }
-  }
-  .ticker-track {
-    animation: ticker 28s linear infinite;
-    white-space: nowrap;
-    display: flex;
-  }
-  .ticker-track-reverse {
-    animation: ticker-reverse 22s linear infinite;
-    white-space: nowrap;
-    display: flex;
-  }
-  .ticker-track:hover,
-  .ticker-track-reverse:hover { animation-play-state: paused; }
-
-  /* ── Scan line effect ────────────────────────────────── */
-  @keyframes scan {
-    0%   { transform: translateY(-100%); }
-    100% { transform: translateY(100vh); }
-  }
-  .scanline {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, rgba(0, 123, 255, 0.08), transparent);
-    animation: scan 8s linear infinite;
-    pointer-events: none;
-    z-index: 9999;
-  }
-
-  /* ── Keyframes ───────────────────────────────────────── */
-  @keyframes shimmer {
-    0%   { background-position: 0% center; }
-    100% { background-position: 200% center; }
-  }
-  @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50%       { transform: translateY(-12px); }
-  }
-
-  /* ── Pulse dot ───────────────────────────────────────── */
-  .pulse-dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: #007BFF;
-    box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.4);
-    animation: pulse-ring 2s infinite;
-  }
-  @keyframes pulse-ring {
-    0%   { box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.4); }
-    70%  { box-shadow: 0 0 0 8px rgba(0, 123, 255, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(0, 123, 255, 0); }
-  }
-
-  /* ── Typography scale ────────────────────────────────── */
-  .hero-headline {
-    font-size: clamp(3.5rem, 9vw, 9rem);
-    font-family: 'Bebas Neue', Impact, sans-serif;
-    letter-spacing: 0.02em;
-    line-height: 0.95;
-  }
-  .section-headline {
-    font-size: clamp(2.5rem, 5vw, 4.5rem);
-    font-family: 'Bebas Neue', Impact, sans-serif;
-    letter-spacing: 0.02em;
-    line-height: 1;
-  }
-
-  /* ── Glow hover ──────────────────────────────────────── */
-  .glow-hover:hover {
-    box-shadow: 0 0 30px rgba(0, 123, 255, 0.2), 0 20px 60px rgba(0, 0, 0, 0.5);
-  }
-
-  /* ── Power bar ───────────────────────────────────────── */
-  .power-bar {
-    height: 3px;
-    background: linear-gradient(90deg, #003366 0%, #007BFF 50%, #4DA6FF 100%);
-    background-size: 200% auto;
-    animation: shimmer 2s linear infinite;
-  }
-
-  /* ── Neon glow ───────────────────────────────────────── */
-  @keyframes neon-pulse {
-    0%, 100% { box-shadow: 0 0 8px rgba(0,123,255,0.4), 0 0 20px rgba(0,123,255,0.2); }
-    50%       { box-shadow: 0 0 16px rgba(0,123,255,0.7), 0 0 40px rgba(0,123,255,0.35); }
-  }
-  .neon-glow { animation: neon-pulse 2.5s ease-in-out infinite; }
-
-  /* ── Shimmer card loading effect ─────────────────────── */
-  @keyframes card-shimmer {
-    0%   { background-position: -200% center; }
-    100% { background-position: 200% center; }
-  }
-  .shimmer-border {
-    background: linear-gradient(90deg, rgba(0,123,255,0.1) 0%, rgba(77,166,255,0.4) 50%, rgba(0,123,255,0.1) 100%);
-    background-size: 200% auto;
-    animation: card-shimmer 3s linear infinite;
-  }
-
-  /* ── Live dot pulse ───────────────────────────────────── */
-  @keyframes live-blink {
-    0%, 100% { opacity: 1; }
-    50%       { opacity: 0.3; }
-  }
-  .live-dot {
-    display: inline-block;
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: #25D366;
-    animation: live-blink 1.2s ease-in-out infinite;
-  }
-
-  /* ── Range input styling ─────────────────────────────── */
-  input[type=range] {
-    -webkit-appearance: none;
-    appearance: none;
-    height: 4px;
-    border-radius: 0;
-    cursor: pointer;
-  }
-  input[type=range]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 20px; height: 20px;
-    background: #007BFF;
-    border-radius: 50%;
-    border: 2px solid #4DA6FF;
-    box-shadow: 0 0 10px rgba(0,123,255,0.5);
-    cursor: pointer;
-    transition: box-shadow 0.2s;
-  }
-  input[type=range]::-webkit-slider-thumb:hover {
-    box-shadow: 0 0 20px rgba(0,123,255,0.8);
-  }
-  input[type=range]::-moz-range-thumb {
-    width: 20px; height: 20px;
-    background: #007BFF;
-    border-radius: 50%;
-    border: 2px solid #4DA6FF;
-    box-shadow: 0 0 10px rgba(0,123,255,0.5);
-    cursor: pointer;
-  }
-
-  /* ── Number badge ────────────────────────────────────── */
-  .number-badge {
-    font-family: 'Bebas Neue', Impact, sans-serif;
-    font-size: 0.65rem;
-    letter-spacing: 0.2em;
-    padding: 2px 8px;
-    background: rgba(0, 123, 255, 0.12);
-    border: 1px solid rgba(0, 123, 255, 0.3);
-    color: #007BFF;
+  .luxury-shadow {
+    box-shadow: 0 28px 90px rgba(0, 0, 0, 0.45);
   }
 }
